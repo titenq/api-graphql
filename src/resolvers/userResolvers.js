@@ -32,8 +32,8 @@ export default {
     },
   },
   Mutation: {
-    createUser: async (parent, { name, password }, { models: { userModel } }, info) => {
-      const user = await userModel.create({ name, password });
+    createUser: async (parent, { name, email, password }, { models: { userModel } }, info) => {
+      const user = await userModel.create({ name, email, password });
       return user;
     },
   },
