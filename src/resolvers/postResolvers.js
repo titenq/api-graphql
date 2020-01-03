@@ -32,6 +32,16 @@ export default {
       const post = await postModel.findById({ _id: id }).exec();
       post.delete();
       return post;
+    },
+    updatePost: async (parent, { id, title, content }, { models: { postModel }, me }, info) => {
+      if (!me) {
+        throw new AuthenticationError('You are not authenticated');
+      }
+      const post = await postModel.findById({ _id: id }).exec();
+
+      await post.updateOne({ $set: { _id: id, title: title, content: content }}).exec();
+      const postUpdated = await postModel.findById({ _id: id }).exec();
+      return postUpdated;
     }
   },
   Post: {

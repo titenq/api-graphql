@@ -16,5 +16,6 @@ export default gql`
   extend type Mutation {
     createPost(title: String!, content: String!): Post!
     deletePost(id: ID!): Post!
+    updatePost(id: ID!, title: String, content: String): Post!
   }
 `;
