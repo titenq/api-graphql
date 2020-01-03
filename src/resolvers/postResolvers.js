@@ -25,6 +25,14 @@ export default {
       const post = await postModel.create({ title, content, author: me.id });
       return post;
     },
+    deletePost: async (parent, { id }, { models: { postModel }, me }, info) => {
+      if (!me) {
+        throw new AuthenticationError('You are not authenticated');
+      }
+      const post = await postModel.findById({ _id: id }).exec();
+      post.delete();
+      return post;
+    }
   },
   Post: {
     author: async ({ author }, args, { models: { userModel } }, info) => {
